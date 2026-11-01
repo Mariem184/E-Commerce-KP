@@ -1,0 +1,57 @@
+<div class="feature-container">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">إدارة المخزون والمستودعات (Inventory)</h1>
+      <p class="page-description">متابعة حركة المخزون، الجرد الدوري، والتحويل بين المستودعات والفروع</p>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary">+ إذن إضافة / تسوية مخزنية</button>
+    </div>
+  </div>
+
+  <!-- Quick Metrics -->
+  <div class="inventory-stats">
+    <div class="stat-box">
+      <span class="label">إجمالي قيمة المخزون (بالتكلفة)</span>
+      <span class="value">412,850 ر.س</span>
+    </div>
+    <div class="stat-box">
+      <span class="label">إجمالي الأصناف بالمستودع</span>
+      <span class="value">1,420 صنف</span>
+    </div>
+    <div class="stat-box warn">
+      <span class="label">أصناف قاربت على النفاد</span>
+      <span class="value">12 صنف</span>
+    </div>
+  </div>
+
+  <!-- Inventory Table -->
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>المستودع</th>
+          <th>اسم الصنف</th>
+          <th>الكمية المتوفرة</th>
+          <th>الكمية المحجوزة</th>
+          <th>الكمية الفعلية المتاحة</th>
+          <th>حد الطلب</th>
+          <th>الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of inventoryItems">
+          <td>{{ item.warehouse }}</td>
+          <td><strong>{{ item.productName }}</strong></td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.reserved }}</td>
+          <td><strong class="available">{{ item.quantity - item.reserved }}</strong></td>
+          <td><span class="badge">{{ item.minLimit }}</span></td>
+          <td>
+            <button class="btn-sm">جرد فوري</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

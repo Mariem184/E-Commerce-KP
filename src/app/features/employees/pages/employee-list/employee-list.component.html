@@ -1,0 +1,45 @@
+<div class="feature-container">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">إدارة الموظفين والصلاحيات (Employees)</h1>
+      <p class="page-description">حسابات كادر العمل، أدوار الصلاحيات (Admin, Cashier, Manager)، وتعيين الورديات</p>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary">+ إضافة موظف جديد</button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>الموظف</th>
+          <th>البريد الإلكتروني</th>
+          <th>الدور الوظيفي</th>
+          <th>الفرع</th>
+          <th>الوردية</th>
+          <th>الحالة</th>
+          <th>الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of employees">
+          <td>
+            <div class="emp-cell">
+              <div class="emp-avatar">{{ emp.avatar }}</div>
+              <strong>{{ emp.name }}</strong>
+            </div>
+          </td>
+          <td><code>{{ emp.email }}</code></td>
+          <td><span class="role-pill">{{ emp.role }}</span></td>
+          <td>{{ emp.branch }}</td>
+          <td>{{ emp.shift }}</td>
+          <td><span class="status-active">نشط</span></td>
+          <td>
+            <button class="btn-sm">تعديل الصلاحيات</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

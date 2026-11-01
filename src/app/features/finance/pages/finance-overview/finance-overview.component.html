@@ -1,0 +1,70 @@
+<div class="feature-container">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">إدارة المالية والخزينة (Finance)</h1>
+      <p class="page-description">حركة الخزينة اليومية، سندات الصرف والقبض، المصروفات التشغيلية، وصافي الأرباح</p>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary">+ سند صرف / مصروف جديد</button>
+    </div>
+  </div>
+
+  <!-- Financial Metric Cards -->
+  <div class="finance-grid">
+    <div class="metric-card income">
+      <span class="title">إجمالي إيرادات الشهر</span>
+      <span class="value">284,500 ر.س</span>
+      <span class="sub">+12% عن الشهر الماضي</span>
+    </div>
+    <div class="metric-card expense">
+      <span class="title">إجمالي المصروفات والمشتريات</span>
+      <span class="value">168,200 ر.س</span>
+      <span class="sub">رواتب، إيجار، فواتير موردين</span>
+    </div>
+    <div class="metric-card profit">
+      <span class="title">صافي الأرباح المحققة</span>
+      <span class="value">116,300 ر.س</span>
+      <span class="sub">هامش ربح صحي 40.8%</span>
+    </div>
+    <div class="metric-card drawer">
+      <span class="title">النقد الحالي في الدرج (Cash)</span>
+      <span class="value">14,820 ر.س</span>
+      <span class="sub">جاهز للتسليم البنكي</span>
+    </div>
+  </div>
+
+  <!-- Recent Transactions -->
+  <div class="table-container">
+    <div class="table-title">آخر الحركات المالية والقيود</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>رقم السند</th>
+          <th>النوع</th>
+          <th>البيان / الوصف</th>
+          <th>الحساب / الصندوق</th>
+          <th>المبلغ</th>
+          <th>التاريخ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of transactions">
+          <td><strong>#TR-{{ t.id }}</strong></td>
+          <td>
+            <span class="badge" [class.in]="t.type === 'قبض'" [class.out]="t.type === 'صرف'">
+              {{ t.type }}
+            </span>
+          </td>
+          <td>{{ t.description }}</td>
+          <td>{{ t.account }}</td>
+          <td>
+            <strong [class.text-green]="t.type === 'قبض'" [class.text-red]="t.type === 'صرف'">
+              {{ (t.type === 'قبض' ? '+' : '-') + (t.amount | currencyFormat) }}
+            </strong>
+          </td>
+          <td>{{ t.date }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

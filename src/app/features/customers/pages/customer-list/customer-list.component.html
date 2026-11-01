@@ -1,0 +1,44 @@
+<div class="feature-container">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">إدارة العملاء وحساباتهم (Customers)</h1>
+      <p class="page-description">بيانات العملاء، نقاط الولاء، وكشف حساب الديون والمستحقات</p>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary">+ إضافة عميل جديد</button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>اسم العميل</th>
+          <th>رقم الهاتف</th>
+          <th>المدينة</th>
+          <th>عدد الفواتير</th>
+          <th>الرصيد / المديونية</th>
+          <th>نقاط الولاء</th>
+          <th>الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of customers">
+          <td><strong>{{ c.name }}</strong></td>
+          <td><span dir="ltr">{{ c.phone }}</span></td>
+          <td>{{ c.city }}</td>
+          <td>{{ c.totalOrders }}</td>
+          <td>
+            <span [class.debt]="c.balance > 0">
+              {{ c.balance > 0 ? (c.balance | currencyFormat) + ' (عليه)' : '0.00 ر.س' }}
+            </span>
+          </td>
+          <td><span class="points-badge">⭐ {{ c.points }} نقطة</span></td>
+          <td>
+            <button class="btn-sm">كشف حساب</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

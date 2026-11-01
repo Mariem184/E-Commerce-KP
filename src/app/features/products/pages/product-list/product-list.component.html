@@ -1,0 +1,76 @@
+<div class="feature-container">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">إدارة المنتجات (Products)</h1>
+      <p class="page-description">عرض وإضافة وتعديل أصناف المتجر، والتحكم في الأسعار والتصنيفات</p>
+    </div>
+    <div class="actions">
+      <a routerLink="new" class="btn btn-primary">+ إضافة منتج جديد</a>
+    </div>
+  </div>
+
+  <!-- Filters & Search Bar -->
+  <div class="filters-card">
+    <div class="search-input-group">
+      <span>🔍</span>
+      <input type="text" placeholder="البحث بالاسم أو الباركود..." class="form-input" />
+    </div>
+    <div class="filter-actions">
+      <select class="form-select">
+        <option value="">جميع التصنيفات</option>
+        <option value="electronics">إلكترونيات</option>
+        <option value="accessories">إكسسوارات</option>
+        <option value="cables">كابلات وشواحن</option>
+      </select>
+      <select class="form-select">
+        <option value="">حالة التوفر</option>
+        <option value="in_stock">متوفر</option>
+        <option value="low">منخفض</option>
+        <option value="out">نفد</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Products Table -->
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>المنتج</th>
+          <th>الباركود</th>
+          <th>التصنيف</th>
+          <th>سعر التكلفة</th>
+          <th>سعر البيع</th>
+          <th>المخزون الحالي</th>
+          <th>الحالة</th>
+          <th>الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of products()">
+          <td>
+            <div class="product-cell">
+              <strong>{{ item.name }}</strong>
+            </div>
+          </td>
+          <td><code>{{ item.barcode }}</code></td>
+          <td><span class="category-pill">{{ item.category }}</span></td>
+          <td>{{ item.costPrice | currencyFormat }}</td>
+          <td><strong>{{ item.salePrice | currencyFormat }}</strong></td>
+          <td>{{ item.stock }} وحدة</td>
+          <td>
+            <span class="status-badge" [ngClass]="item.status">
+              {{ item.status === 'IN_STOCK' ? 'متوفر' : item.status === 'LOW_STOCK' ? 'منخفض' : 'نفد' }}
+            </span>
+          </td>
+          <td>
+            <div class="table-actions">
+              <a [routerLink]="[item.id, 'edit']" class="btn-icon" title="تعديل">✏️</a>
+              <button class="btn-icon danger" title="حذف">🗑️</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

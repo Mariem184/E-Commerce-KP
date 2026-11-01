@@ -1,0 +1,17 @@
+<div class="stat-card" [ngClass]="theme">
+  <div class="stat-header">
+    <div class="stat-info">
+      <span class="stat-title">{{ title }}</span>
+      <h3 class="stat-value">{{ value }}</h3>
+    </div>
+    <div class="stat-icon-wrapper" [style.backgroundColor]="iconBg">
+      <span class="stat-icon">{{ icon }}</span>
+    </div>
+  </div>
+  <div class="stat-footer" *ngIf="change !== undefined || subtitle">
+    <span *ngIf="change !== undefined" class="stat-change" [ngClass]="isPositive ? 'positive' : 'negative'">
+      {{ isPositive ? '▲ +' : '▼ -' }}{{ Math.abs(change) }}%
+    </span>
+    <span class="stat-subtitle">{{ subtitle }}</span>
+  </div>
+</div>

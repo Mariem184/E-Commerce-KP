@@ -1,0 +1,48 @@
+<div class="feature-container">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">إدارة فواتير المبيعات (Sales)</h1>
+      <p class="page-description">سجل كامل بجميع فواتير المبيعات، عروض الأسعار، وفواتير المرتجع</p>
+    </div>
+    <div class="actions">
+      <a routerLink="/pos" class="btn btn-primary">+ فاتورة بيع جديدة</a>
+    </div>
+  </div>
+
+  <!-- Sales Table -->
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>رقم الفاتورة</th>
+          <th>التاريخ والوقت</th>
+          <th>العميل</th>
+          <th>الكاشير / الموظف</th>
+          <th>الإجمالي قبل الضريبة</th>
+          <th>الضريبة (15%)</th>
+          <th>الصافي النهائي</th>
+          <th>الحالة</th>
+          <th>الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sale of sales">
+          <td><strong>#INV-{{ sale.invoiceNumber }}</strong></td>
+          <td>{{ sale.date }}</td>
+          <td>{{ sale.customer }}</td>
+          <td>{{ sale.cashier }}</td>
+          <td>{{ sale.subtotal | currencyFormat }}</td>
+          <td>{{ sale.tax | currencyFormat }}</td>
+          <td><strong>{{ sale.total | currencyFormat }}</strong></td>
+          <td>
+            <span class="badge paid">مكتملة ومسددة</span>
+          </td>
+          <td>
+            <button class="btn-icon" title="طباعة">🖨️</button>
+            <button class="btn-icon" title="تفاصيل">👁️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

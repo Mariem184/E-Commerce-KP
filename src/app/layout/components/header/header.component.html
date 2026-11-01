@@ -1,0 +1,40 @@
+<header class="header-container">
+  <div class="header-left">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        placeholder="بحث سريع (رقم الفاتورة، اسم المنتج، العميل)..."
+        class="search-input"
+      />
+    </div>
+  </div>
+
+  <div class="header-right">
+    <!-- Quick POS Button -->
+    <a routerLink="/pos" class="pos-quick-btn">
+      <span>⚡ نقطة البيع (POS)</span>
+    </a>
+
+    <!-- Branch / Shift Badge -->
+    <div class="branch-pill">
+      <span class="status-indicator"></span>
+      <span>الفرع الرئيسي - وردية صباحية</span>
+    </div>
+
+    <!-- Notification Bell -->
+    <button class="icon-btn" title="الإشعارات">
+      <span class="icon">🔔</span>
+      <span class="badge-dot"></span>
+    </button>
+
+    <!-- Current User Display -->
+    <div class="user-profile" *ngIf="authService.currentUser() as user">
+      <img [src]="user.avatarUrl" [alt]="user.name" class="avatar" />
+      <div class="user-meta">
+        <span class="user-display-name">{{ user.name }}</span>
+        <span class="user-badge">{{ user.storeName || 'الإدارة المركزية' }}</span>
+      </div>
+    </div>
+  </div>
+</header>

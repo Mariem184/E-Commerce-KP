@@ -1,0 +1,25 @@
+<div class="feature-container">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">التقارير التحليلية والضريبية (Reports)</h1>
+      <p class="page-description">تقارير ضريبة القيمة المضافة (ZATCA)، حركة الأصناف، والأداء المالي السنوي والشهري</p>
+    </div>
+    <div class="actions">
+      <button class="btn btn-secondary">📥 تصدير ملف إكسل (Excel)</button>
+      <button class="btn btn-primary">🖨️ طباعة الإقرار الضريبي</button>
+    </div>
+  </div>
+
+  <!-- Report Categories Grid -->
+  <div class="reports-grid">
+    <div class="report-box" *ngFor="let rep of reportCards">
+      <div class="rep-icon">{{ rep.icon }}</div>
+      <div class="rep-details">
+        <h4>{{ rep.title }}</h4>
+        <p>{{ rep.description }}</p>
+        <span class="rep-badge">{{ rep.tag }}</span>
+      </div>
+      <button class="btn-run">عرض التقرير ←</button>
+    </div>
+  </div>
+</div>

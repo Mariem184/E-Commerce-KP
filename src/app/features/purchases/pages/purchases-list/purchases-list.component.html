@@ -1,0 +1,42 @@
+<div class="feature-container">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">إدارة المشتريات والموردين (Purchases)</h1>
+      <p class="page-description">أوامر الشراء، فواتير الموردين، وإدارة التوريدات والمستحقات</p>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary">+ فاتورة شراء جديدة</button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>رقم أمر الشراء</th>
+          <th>المورد</th>
+          <th>تاريخ الفاتورة</th>
+          <th>المبلغ الإجمالي</th>
+          <th>المدفوع</th>
+          <th>المتبقي</th>
+          <th>حالة الاستلام</th>
+          <th>الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of purchases">
+          <td><strong>#PO-{{ p.orderNumber }}</strong></td>
+          <td>{{ p.supplier }}</td>
+          <td>{{ p.date }}</td>
+          <td><strong>{{ p.total | currencyFormat }}</strong></td>
+          <td>{{ p.paid | currencyFormat }}</td>
+          <td><span [class.text-danger]="p.remaining > 0">{{ p.remaining | currencyFormat }}</span></td>
+          <td><span class="badge received">{{ p.status }}</span></td>
+          <td>
+            <button class="btn-sm">عرض الفاتورة</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

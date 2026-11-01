@@ -1,0 +1,30 @@
+.app-footer {
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  padding: 1rem 1.75rem;
+  font-size: 0.8125rem;
+  color: #64748b;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.link {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

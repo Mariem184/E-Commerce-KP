@@ -1,0 +1,98 @@
+<div class="pos-layout">
+  <!-- Left: Products Catalog & Search -->
+  <div class="pos-catalog">
+    <div class="catalog-header">
+      <div class="barcode-search">
+        <span class="icon">🔍</span>
+        <input
+          type="text"
+          placeholder="امسح الباركود أو ابحث عن المنتج..."
+          [(ngModel)]="searchQuery"
+          class="search-field"
+        />
+      </div>
+      <div class="category-filters">
+        <button
+          *ngFor="let cat of categories"
+          (click)="selectedCategory.set(cat)"
+          class="cat-chip"
+          [class.active]="selectedCategory() === cat"
+        >
+          {{ cat }}
+        </button>
+      </div>
+    </div>
+
+    <div class="products-grid">
+      <div
+        *ngFor="let product of filteredProducts()"
+        (click)="addToCart(product)"
+        class="pos-product-card"
+      >
+        <div class="product-icon">{{ product.icon }}</div>
+        <div class="product-title">{{ product.name }}</div>
+        <div class="product-price">{{ product.price | currencyFormat }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Cart & Checkout Summary -->
+  <div class="pos-cart-panel">
+    <div class="cart-header">
+      <h3>سلة المبيعات الحالية</h3>
+      <button (click)="clearCart()" class="clear-btn" *ngIf="cart().length > 0">تفريغ السلة</button>
+    </div>
+
+    <!-- Cart Items List -->
+    <div class="cart-items-container">
+      <div *ngIf="cart().length === 0" class="empty-cart">
+        <span>🛒</span>
+        <p>السلة فارغة، اختر أصنافاً من القائمة أو امسح الباركود</p>
+      </div>
+
+      <div *ngFor="let item of cart()" class="cart-row">
+        <div class="item-name-col">
+          <span class="name">{{ item.product.name }}</span>
+          <span class="unit-price">{{ item.product.price | currencyFormat }} للوحدة</span>
+        </div>
+
+        <div class="qty-control">
+          <button (click)="changeQty(item, -1)" class="qty-btn">-</button>
+          <span class="qty-val">{{ item.quantity }}</span>
+          <button (click)="changeQty(item, 1)" class="qty-btn">+</button>
+        </div>
+
+        <div class="item-total">
+          {{ (item.product.price * item.quantity) | currencyFormat }}
+        </div>
+
+        <button (click)="removeItem(item)" class="remove-btn">✕</button>
+      </div>
+    </div>
+
+    <!-- Totals & Checkout -->
+    <div class="cart-footer">
+      <div class="summary-line">
+        <span>المجموع قبل الضريبة:</span>
+        <span>{{ subtotal() | currencyFormat }}</span>
+      </div>
+      <div class="summary-line">
+        <span>ضريبة القيمة المضافة (15%):</span>
+        <span>{{ tax() | currencyFormat }}</span>
+      </div>
+      <div class="summary-line grand-total">
+        <span>المجموع الكلي:</span>
+        <span>{{ total() | currencyFormat }}</span>
+      </div>
+
+      <div class="payment-methods">
+        <button class="pay-btn cash" (click)="checkout('نقدي')">
+          💵 كاش (Cash)
+        </button>
+        <button class="pay-btn mada" (click)="checkout('مدى')">
+          💳 مدى / شبكة
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
