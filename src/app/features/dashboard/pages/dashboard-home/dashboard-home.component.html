@@ -1,115 +1,239 @@
-<div class="dashboard-page">
-  <!-- Page Header -->
-  <div class="page-top-bar">
-    <div>
-      <h1 class="page-title">لوحة التحكم الرئيسية (Dashboard)</h1>
-      <p class="page-subtitle">مرحباً بك مجدداً، إليك ملخص لأداء متجرك ومبيعاتك اليوم</p>
+<div class="dashboard-wrapper">
+  <!-- Top Bar: Greeting & Actions -->
+  <div class="top-bar">
+    <div class="greeting-section">
+      <h1 class="greeting-title">صباح الخير , اسم الموظف</h1>
+      <span class="greeting-subtitle">فرع المعادي . السبت 6 أكتوبر 2026</span>
     </div>
-    <div class="top-actions">
-      <a routerLink="/pos" class="action-btn primary">
-        <span>⚡ فتح نقطة البيع (POS)</span>
-      </a>
-      <a routerLink="/products" class="action-btn secondary">
-        <span>+ إضافة منتج جديد</span>
+
+    <div class="actions-section">
+      <!-- Time Filters -->
+      <div class="time-filters-group">
+        <button
+          *ngFor="let filter of timeFilters"
+          (click)="selectedFilter.set(filter)"
+          class="time-filter-btn"
+          [class.active]="selectedFilter() === filter"
+        >
+          {{ filter }}
+        </button>
+      </div>
+
+      <!-- New Sale Button -->
+      <a routerLink="/pos" class="new-sale-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        <span>فاتورة بيع جديدة</span>
       </a>
     </div>
   </div>
 
-  <!-- KPI Stat Cards -->
-  <div class="kpi-grid">
-    <app-stat-card
-      title="إجمالي مبيعات اليوم"
-      value="18,450 ر.س"
-      icon="💰"
-      iconBg="#dcfce7"
-      [change]="14.8"
-      [isPositive]="true"
-      subtitle="مقارنة بيوم أمس"
-    ></app-stat-card>
-
-    <app-stat-card
-      title="عدد الفواتير المنفذة"
-      value="142 فاتورة"
-      icon="🧾"
-      iconBg="#e0f2fe"
-      [change]="8.2"
-      [isPositive]="true"
-      subtitle="متوسط السلة 130 ر.س"
-    ></app-stat-card>
-
-    <app-stat-card
-      title="تنبيهات نواقص المخزون"
-      value="5 أصناف"
-      icon="⚠️"
-      iconBg="#fef3c7"
-      [change]="-2"
-      [isPositive]="false"
-      subtitle="تحت حد الطلب الأدنى"
-    ></app-stat-card>
-
-    <app-stat-card
-      title="صافي الأرباح التقديرية"
-      value="5,230 ر.س"
-      icon="📈"
-      iconBg="#f3e8ff"
-      [change]="18.5"
-      [isPositive]="true"
-      subtitle="هامش ربح 28.3%"
-    ></app-stat-card>
-  </div>
-
-  <!-- Main Content Split: Recent Sales & Alerts -->
-  <div class="sections-grid">
-    <!-- Recent Orders -->
-    <div class="card-panel">
-      <div class="panel-header">
-        <h3>آخر فواتير المبيعات</h3>
-        <a routerLink="/sales" class="view-all-link">عرض جميع المبيعات ←</a>
+  <!-- 4 KPI Cards -->
+  <div class="kpi-cards-grid">
+    <!-- Card 1: مبيعات اليوم -->
+    <div class="figma-kpi-card">
+      <div class="kpi-top-row">
+        <span class="kpi-label">مبيعات اليوم</span>
+        <div class="kpi-icon-square blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
       </div>
-      <div class="table-responsive">
-        <table class="styled-table">
-          <thead>
-            <tr>
-              <th>رقم الفاتورة</th>
-              <th>العميل</th>
-              <th>طريقة الدفع</th>
-              <th>المبلغ</th>
-              <th>الحالة</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let order of recentOrders">
-              <td><strong>#{{ order.id }}</strong></td>
-              <td>{{ order.customer }}</td>
-              <td>
-                <span class="payment-tag">{{ order.paymentMethod }}</span>
-              </td>
-              <td>{{ order.total | currencyFormat }}</td>
-              <td>
-                <span class="status-badge paid">مدفوع</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="kpi-bottom-row">
+        <h3 class="kpi-number">42.854 ج.م</h3>
+        <span class="kpi-trend positive">▲ 12%</span>
       </div>
     </div>
 
-    <!-- Stock Alerts -->
-    <div class="card-panel">
-      <div class="panel-header">
-        <h3>أصناف قاربت على النفاد</h3>
-        <a routerLink="/inventory" class="view-all-link">إدارة المخزون ←</a>
+    <!-- Card 2: عدد الفواتير -->
+    <div class="figma-kpi-card">
+      <div class="kpi-top-row">
+        <span class="kpi-label">عدد الفواتير</span>
+        <div class="kpi-icon-square blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+        </div>
       </div>
-      <div class="alerts-list">
-        <div *ngFor="let item of lowStockItems" class="alert-item">
-          <div class="item-info">
-            <span class="item-name">{{ item.name }}</span>
-            <span class="item-sku">SKU: {{ item.sku }}</span>
-          </div>
-          <div class="stock-badge danger">
-            المتبقي: {{ item.remaining }} وحدة
+      <div class="kpi-bottom-row">
+        <h3 class="kpi-number">200</h3>
+        <span class="kpi-trend positive">▲ 8%</span>
+      </div>
+    </div>
+
+    <!-- Card 3: متوسط الفاتورة -->
+    <div class="figma-kpi-card">
+      <div class="kpi-top-row">
+        <span class="kpi-label">متوسط الفاتورة</span>
+        <div class="kpi-icon-square blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+        </div>
+      </div>
+      <div class="kpi-bottom-row">
+        <h3 class="kpi-number">854 ج.م</h3>
+        <span class="kpi-trend negative">▼ 3%</span>
+      </div>
+    </div>
+
+    <!-- Card 4: منتجات منخفضة المخزون -->
+    <div class="figma-kpi-card">
+      <div class="kpi-top-row">
+        <span class="kpi-label">منتجات منخفضة المخزون</span>
+        <div class="kpi-icon-square orange">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+          </svg>
+        </div>
+      </div>
+      <div class="kpi-bottom-row">
+        <div class="kpi-composite">
+          <strong class="kpi-number bold">14</strong>
+          <span class="kpi-subtext">تحتاج طلب شراء</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Main Grid (Right Chart & Invoices + Left Alerts) -->
+  <div class="dashboard-content-layout">
+    <!-- Right Main Column (Chart + Recent Invoices) -->
+    <div class="main-column">
+      <!-- Sales Chart Card -->
+      <div class="dashboard-card chart-card">
+        <div class="card-title-row">
+          <h3 class="card-heading">المبيعات خلال آخر 7 أيام</h3>
+          <div class="chart-legend">
+            <span class="legend-dot"></span>
+            <span class="legend-label">المبيعات (ج.م)</span>
           </div>
         </div>
+
+        <div class="chart-container">
+          <svg class="sales-svg-chart" viewBox="0 0 650 200" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="salesGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#005bf5" stop-opacity="0.25"></stop>
+                <stop offset="100%" stop-color="#005bf5" stop-opacity="0.0"></stop>
+              </linearGradient>
+            </defs>
+            <!-- Grid lines -->
+            <line x1="0" y1="50" x2="650" y2="50" stroke="#f1f5f9" stroke-width="1.5"></line>
+            <line x1="0" y1="110" x2="650" y2="110" stroke="#f1f5f9" stroke-width="1.5"></line>
+            <line x1="0" y1="170" x2="650" y2="170" stroke="#f1f5f9" stroke-width="1.5"></line>
+            <!-- Area Fill -->
+            <polygon
+              points="0,60 100,75 200,105 300,90 400,135 500,120 650,150 650,200 0,200"
+              fill="url(#salesGrad)"
+            ></polygon>
+            <!-- Line Stroke -->
+            <polyline
+              points="0,60 100,75 200,105 300,90 400,135 500,120 650,150"
+              fill="none"
+              stroke="#005bf5"
+              stroke-width="3"
+              stroke-linecap="round"
+            ></polyline>
+          </svg>
+
+          <!-- Day Labels -->
+          <div class="chart-days-row">
+            <span>السبت</span>
+            <span>الجمعة</span>
+            <span>الخميس</span>
+            <span>الأربعاء</span>
+            <span>الثلاثاء</span>
+            <span>الإثنين</span>
+            <span>الأحد</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Invoices Table Card -->
+      <div class="dashboard-card invoices-card">
+        <div class="card-title-row">
+          <h3 class="card-heading">اخر الفواتير</h3>
+          <a routerLink="/sales" class="card-action-link">كل المبيعات</a>
+        </div>
+
+        <div class="table-wrap">
+          <table class="figma-table">
+            <thead>
+              <tr>
+                <th>رقم الفاتورة</th>
+                <th>العميل</th>
+                <th>الاجمالي</th>
+                <th>الحالة</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let invoice of recentInvoices">
+                <td class="inv-id">{{ invoice.id }}</td>
+                <td class="inv-customer">{{ invoice.customer }}</td>
+                <td class="inv-total">{{ invoice.total }}</td>
+                <td>
+                  <span class="status-pill" [ngClass]="invoice.statusClass">
+                    {{ invoice.statusText }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Left Side Column (Low Stock Items & Tax Alert Card) -->
+    <div class="side-column">
+      <!-- Low Stock Products List -->
+      <div class="dashboard-card low-stock-card">
+        <div class="card-title-row">
+          <h3 class="card-heading">منتجات قاربت علي النفاذ</h3>
+          <a routerLink="/inventory" class="card-action-link">عرض الكل</a>
+        </div>
+
+        <div class="low-stock-list">
+          <div *ngFor="let item of lowStockList" class="low-stock-row">
+            <div class="product-thumb"></div>
+            <div class="product-meta">
+              <span class="prod-name">{{ item.name }}</span>
+              <span class="prod-sku">{{ item.sku }}</span>
+            </div>
+            <span class="stock-qty-pill">{{ item.qty }} قطع</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Amber Tax Invoices Alert Box -->
+      <div class="tax-alert-box">
+        <div class="alert-header">
+          <div class="alert-icon-square">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+              <line x1="12" y1="9" x2="12" y2="13"></line>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          </div>
+          <h4 class="alert-title">ايصالات ضريبية غير مرسلة</h4>
+        </div>
+
+        <div class="alert-count-row">
+          <span class="big-alert-num">3</span>
+          <span class="alert-count-label">ايصالات بانتظار الارسال</span>
+        </div>
+
+        <p class="alert-desc">اقدمها منذ 3 ساعات , اعد ارسالها قبل انتهاء اليوم.</p>
+
+        <button (click)="resendTaxInvoices()" class="resend-all-btn">
+          اعادة ارسال الكل
+        </button>
       </div>
     </div>
   </div>

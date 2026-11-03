@@ -1,76 +1,138 @@
-<div class="feature-container">
-  <div class="page-header">
-    <div>
-      <h1 class="page-title">إدارة المنتجات (Products)</h1>
-      <p class="page-description">عرض وإضافة وتعديل أصناف المتجر، والتحكم في الأسعار والتصنيفات</p>
+<div class="products-page-container">
+  <!-- Header Bar -->
+  <div class="products-header">
+    <div class="title-with-badge">
+      <h1 class="page-title">المنتجات</h1>
+      <span class="count-badge">282</span>
     </div>
-    <div class="actions">
-      <a routerLink="new" class="btn btn-primary">+ إضافة منتج جديد</a>
+
+    <div class="header-actions">
+      <!-- Export Button -->
+      <button class="export-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span>تصدير</span>
+      </button>
+
+      <!-- Add Product Button -->
+      <a routerLink="new" class="add-product-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        <span>اضافة منتج جديد</span>
+      </a>
     </div>
   </div>
 
-  <!-- Filters & Search Bar -->
-  <div class="filters-card">
-    <div class="search-input-group">
-      <span>🔍</span>
-      <input type="text" placeholder="البحث بالاسم أو الباركود..." class="form-input" />
+  <!-- Filters Row -->
+  <div class="filters-row">
+    <!-- Search Box -->
+    <div class="search-box">
+      <input
+        type="text"
+        placeholder="ابحث عن منتج أو فاتورة أو عميل"
+        class="search-field"
+      />
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
     </div>
-    <div class="filter-actions">
-      <select class="form-select">
-        <option value="">جميع التصنيفات</option>
-        <option value="electronics">إلكترونيات</option>
-        <option value="accessories">إكسسوارات</option>
-        <option value="cables">كابلات وشواحن</option>
-      </select>
-      <select class="form-select">
-        <option value="">حالة التوفر</option>
-        <option value="in_stock">متوفر</option>
-        <option value="low">منخفض</option>
-        <option value="out">نفد</option>
-      </select>
+
+    <!-- Dropdown: Category -->
+    <div class="filter-dropdown">
+      <span>الفئة : الكل</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
+
+    <!-- Dropdown: Stock -->
+    <div class="filter-dropdown">
+      <span>المخزون : الكل</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
+
+    <!-- Dropdown: Status -->
+    <div class="filter-dropdown">
+      <span>الحالة : الكل</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
     </div>
   </div>
 
-  <!-- Products Table -->
-  <div class="table-container">
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>المنتج</th>
-          <th>الباركود</th>
-          <th>التصنيف</th>
-          <th>سعر التكلفة</th>
-          <th>سعر البيع</th>
-          <th>المخزون الحالي</th>
-          <th>الحالة</th>
-          <th>الإجراءات</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of products()">
-          <td>
-            <div class="product-cell">
-              <strong>{{ item.name }}</strong>
-            </div>
-          </td>
-          <td><code>{{ item.barcode }}</code></td>
-          <td><span class="category-pill">{{ item.category }}</span></td>
-          <td>{{ item.costPrice | currencyFormat }}</td>
-          <td><strong>{{ item.salePrice | currencyFormat }}</strong></td>
-          <td>{{ item.stock }} وحدة</td>
-          <td>
-            <span class="status-badge" [ngClass]="item.status">
-              {{ item.status === 'IN_STOCK' ? 'متوفر' : item.status === 'LOW_STOCK' ? 'منخفض' : 'نفد' }}
-            </span>
-          </td>
-          <td>
-            <div class="table-actions">
-              <a [routerLink]="[item.id, 'edit']" class="btn-icon" title="تعديل">✏️</a>
-              <button class="btn-icon danger" title="حذف">🗑️</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Products Table Card -->
+  <div class="table-card">
+    <div class="table-container">
+      <table class="figma-products-table">
+        <thead>
+          <tr>
+            <th class="th-checkbox">
+              <input type="checkbox" class="custom-checkbox" />
+            </th>
+            <th>المنتجات</th>
+            <th>عدد المتغيرات</th>
+            <th>الفئة</th>
+            <th>المخزون</th>
+            <th>الحالة</th>
+            <th class="th-actions"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of products">
+            <td class="td-checkbox">
+              <input type="checkbox" class="custom-checkbox" />
+            </td>
+            <td>
+              <div class="product-cell">
+                <div class="prod-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                  </svg>
+                </div>
+                <span class="product-title">{{ p.name }}</span>
+              </div>
+            </td>
+            <td class="td-center">{{ p.variantsCount }}</td>
+            <td>{{ p.category }}</td>
+            <td>
+              <div class="stock-cell">
+                <span class="stock-amount">{{ p.stockQty }} قطع</span>
+                <span class="stock-status-pill" [ngClass]="p.stockClass">
+                  {{ p.stockText }}
+                </span>
+              </div>
+            </td>
+            <td>
+              <div class="status-toggle-wrapper">
+                <label class="switch">
+                  <input type="checkbox" [checked]="p.isActive" (change)="p.isActive = !p.isActive" />
+                  <span class="slider"></span>
+                </label>
+                <span class="status-name" [class.inactive]="!p.isActive">
+                  {{ p.isActive ? 'نشط' : 'غير نشط' }}
+                </span>
+              </div>
+            </td>
+            <td class="td-actions">
+              <button class="kebab-menu-btn" title="خيارات">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="5" r="1"></circle>
+                  <circle cx="12" cy="12" r="1"></circle>
+                  <circle cx="12" cy="19" r="1"></circle>
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

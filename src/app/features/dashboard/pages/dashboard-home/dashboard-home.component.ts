@@ -1,28 +1,49 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { StatCardComponent } from '../../../../shared/components/stat-card/stat-card.component';
-import { CurrencyFormatPipe } from '../../../../shared/pipes/currency-format.pipe';
+
+interface RecentInvoice {
+  id: string;
+  customer: string;
+  total: string;
+  statusText: string;
+  statusClass: string;
+}
+
+interface LowStockItem {
+  name: string;
+  sku: string;
+  qty: number;
+}
 
 @Component({
   selector: 'app-dashboard-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, StatCardComponent, CurrencyFormatPipe],
+  imports: [CommonModule, RouterModule],
   templateUrl: './dashboard-home.component.html',
   styleUrl: './dashboard-home.component.css'
 })
 export class DashboardHomeComponent {
-  recentOrders = [
-    { id: '10928', customer: 'عبدالله السعيد', paymentMethod: 'شبكة (مدى)', total: 345.50 },
-    { id: '10927', customer: 'مؤسسة الأفق للتجارة', paymentMethod: 'تحويل بنكي', total: 4200.00 },
-    { id: '10926', customer: 'عميل نقدي', paymentMethod: 'نقدي (Cash)', total: 85.00 },
-    { id: '10925', customer: 'سارة المنصور', paymentMethod: 'Apple Pay', total: 640.25 }
+  timeFilters = ['اليوم', 'الأسبوع', 'الشهر'];
+  selectedFilter = signal<string>('اليوم');
+
+  recentInvoices: RecentInvoice[] = [
+    { id: 'INV-2041', customer: 'اسم العميل', total: '430 ج.م', statusText: 'مرتجعة', statusClass: 'returned' },
+    { id: 'INV-2041', customer: 'اسم العميل', total: '430 ج.م', statusText: 'مدفوعة', statusClass: 'paid' },
+    { id: 'INV-2041', customer: 'اسم العميل', total: '430 ج.م', statusText: 'مؤجلة', statusClass: 'postponed' },
+    { id: 'INV-2041', customer: 'اسم العميل', total: '430 ج.م', statusText: 'مرتجعة', statusClass: 'returned' },
+    { id: 'INV-2041', customer: 'اسم العميل', total: '430 ج.م', statusText: 'مرتجعة', statusClass: 'returned' }
   ];
 
-  lowStockItems = [
-    { name: 'شاشة حماية زجاجية آيفون 15', sku: 'PRD-GLS-15', remaining: 3 },
-    { name: 'سماعة بلوتوث لاسلكية Pro', sku: 'PRD-EAR-PR', remaining: 2 },
-    { name: 'شاحن سريع Type-C بقدرة 65W', sku: 'PRD-CHG-65', remaining: 4 },
-    { name: 'كابل بيانات فائق السرعة 2M', sku: 'PRD-CBL-2M', remaining: 5 }
+  lowStockList: LowStockItem[] = [
+    { name: 'قميص قطني ازرق - M', sku: 'SKU-12401', qty: 3 },
+    { name: 'قميص قطني ازرق - M', sku: 'SKU-12401', qty: 3 },
+    { name: 'قميص قطني ازرق - M', sku: 'SKU-12401', qty: 3 },
+    { name: 'قميص قطني ازرق - M', sku: 'SKU-12401', qty: 3 },
+    { name: 'قميص قطني ازرق - M', sku: 'SKU-12401', qty: 3 }
   ];
+
+  resendTaxInvoices(): void {
+    alert('تم إعادة إرسال جميع الإيصالات الضريبية بنجاح إلى منظومة الفاتورة الإلكترونية.');
+  }
 }
